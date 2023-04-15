@@ -22,27 +22,18 @@ const { NotImplementedError } = require('../extensions/index.js');
     arr = false
   }else {
     for(let i = 0; i < members.length; i++) {
-    console.log(members[i])
-    if(typeof members[i] === "string"){
-        for(let k = 0; i < members[i].length; k++){
-        if(members[i][k] == " "){
-          console.log(members[i][k] + " spase string")
+      if(typeof members[i] === "string"){
+        for(let k = 0; k < members[i].length; k++){
+          if(members[i][k] == " "){
         }else {
-          console.log(members[i][k] + "  string")
           arr.push(members[i][k].toUpperCase())
-          break}
-        
+          break}   
     }
       
     }
   }
-  console.log(arr)
     arr = arr.sort().join("")
   }
-  
-  
-
-  console.log(arr)
    //arr.length === 0 ? "false" : arr
   return arr
 }
