@@ -17,74 +17,58 @@ const { NotImplementedError } = require('../extensions/index.js');
  function transform(arr) {
   //throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
-  let resultArr 
+  let resultArr = []
   if(!Array.isArray(arr)) {
-    resultArr = Array.isArray(arr)
-  }else if(resultArr.length < 1 ){
-
+    throw new NotImplementedError( "'arr' parameter must be an instance of the Array!");
   }else {
-    for(let i = 0; i < resultArr.length; i++) {
-    console.log(resultArr[i])
-      console.log(resultArr)
-      if(resultArr[i] === "--discard-next") {
+
+    for(let i = 0; i < arr.length; i++) {
+
+      if(arr[i] === "--discard-next") {
         if(i === 0 ) {
-          resultArr.shift()
-          transform(resultArr)
+
         }else {
-          console.log("proverka next" )
           resultArr.splice(i, 2)
-          transform(resultArr)
         }
-      }else if(resultArr[i] === "--discard-prev") {
+      }else if(arr[i] === "--discard-prev") {
         if(i === 0 ) {
+
+        }else if (arr[i-2] === '--discard-next'){
+          resultArr.splice(i-2, 3)
           
-          resultArr.shift()
-          transform(resultArr)
-        }else if (resultArr[i-2] === '--discard-next'){
-          console.log(resultArr[i-1] === arr[i-1])
-          console.log("prev dub 2")
-          resultArr.splice(i, 1)
-          transform(resultArr)
         }else {
           resultArr.splice(i-1, 2)
-          transform(resultArr)
+          
         }
-      }else if(resultArr[i] === "--double-next") {
-        if(i === resultArr.length - 1  ) {
-          resultArr.pop()
-          transform(resultArr)
-        }else if (resultArr[i-2] === '--discard-next'){
-          console.log(resultArr[i-1] === arr[i-1])
-          console.log("prev dub 2")
-          resultArr.splice(i, 1)
-          transform(resultArr)
+      }else if(arr[i] === "--double-next") {
+        if(i === arr.length - 1  ) {
+
         }else {
-          resultArr.splice(i, 1, resultArr[i+1])
-          transform(resultArr)
+          
+          resultArr.push(arr[i+1])
+
         } 
        
        
-      }else if(resultArr[i] === "--double-prev") {
+      }else if(arr[i] === "--double-prev") {
+      
         if(i === 0 ) {
-          console.log("prev dub 1")
-          resultArr.shift()
-          transform(resultArr)
-        }else if (resultArr[i-2] === '--discard-next'){
-          console.log(resultArr[i-1] === arr[i-1])
-          console.log("prev dub 2")
-          resultArr.splice(i, 1)
-          transform(resultArr)
+
+        }else if (arr[i-2] === '--discard-next'){
+          resultArr.splice(i-2, 3)
+
+
         }else {
-           console.log(resultArr[i-1] === arr[i-1])
-        console.log("prev dub 3")
-        resultArr.splice(i, 1, resultArr[i-1])
-          transform(resultArr)
-     
+          
+          resultArr.push(arr[i-2])
+
         }
+      }else{
+        resultArr.push(arr[i])
       }
     }
   }
-  console.log(...resultArr)
+ 
   return resultArr
 }
 
